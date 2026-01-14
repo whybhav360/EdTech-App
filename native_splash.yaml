@@ -1,0 +1,22 @@
+flutter_native_splash:
+  # General splash screen settings for older Android versions and iOS
+  color: "#42a5f5"
+  image: assets/images/dips.jpg
+  fullscreen: true
+
+  # The 'branding' image appears at the bottom of the splash screen.
+  # It should be directly under flutter_native_splash, not nested.
+  # The dimensions should ideally be 276x112 pixels.
+  branding: assets/images/brand.jpg
+
+  # Android 12+ specific configuration
+  android_12:
+    # Background color for Android 12+
+    color: "##F8F8F8"
+    # The main icon for Android 12+
+    image: assets/images/dips.jpg
+    # The color of the background behind the icon (if the icon is not adaptive)
+    icon_background_color: "##F8F8F8"
+    # The branding image for Android 12+ at the bottom of the screen.
+    # The dimensions should ideally be 276x112 pixels.
+    branding: assets/images/brand.jpg
