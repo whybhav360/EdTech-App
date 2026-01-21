@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/HomeScreen/home_screen.dart';
-import 'package:test_app/ProfileScreen/profile_page.dart';
-import 'package:test_app/QOTD/question_of_the_day.dart';
 import 'package:test_app/bottom_navbar.dart';
 
 void main() {
