@@ -1,84 +1,242 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/HomeScreen/home_screen_content.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:test_app/bottom_navbar.dart';
+import 'package:test_app/test_center.dart';
 
-import '../doubt_hub.dart';
-import '../help_center.dart';
-import '../study_center.dart';
-import '../test_center.dart';
+import '../ProfileScreen/profile_page.dart';
+import '../QOTD/question_of_the_day.dart';
+import 'home_icons_column.dart';
+import 'home_list.dart';
 
-class Homescreen extends StatefulWidget {
-  const Homescreen({super.key});
-
-  @override
-  State<Homescreen> createState() => _HomescreenState();
-}
-
-class _HomescreenState extends State<Homescreen> {
-  int currentPage = 0;
-  List<Widget> pages = const [
-    HomeScreenContent(),
-    TestCenter(),
-    StudyCenter(),
-    DoubtHub(),
-    HelpCenter(),
-  ];
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: currentPage, children: pages),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        iconSize: 35,
-        onTap: (value) {
-          setState(() {
-            currentPage = value;
-          });
-        },
-        currentIndex: currentPage,
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/home.svg',
-              width: 35,
-              height: 35,
-              fit: BoxFit.cover,
+      appBar: AppBar(
+        toolbarHeight: 65,
+        backgroundColor: Colors.blueGrey,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return const ProfilePage();
+                },
+              ),
+            );
+          },
+          icon: const Icon(Icons.menu, size: 60),
+        ),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Hello,Vaibhav Madaan!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 29),
+                  ),
+                ],
+              ),
             ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/test-center.svg',
-              width: 35,
-              height: 35,
-              fit: BoxFit.cover,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                HomeIconsColumn(
+                  icon: Icons.book,
+                  label: 'Courses',
+                  onPressed: () {},
+                ),
+                HomeIconsColumn(
+                  icon: Icons.question_mark,
+                  label: 'Question Bank',
+                  onPressed: () {},
+                ),
+                HomeIconsColumn(
+                  icon: Icons.all_inbox,
+                  label: 'Packages',
+                  onPressed: () {},
+                ),
+                HomeIconsColumn(
+                  icon: Icons.newspaper,
+                  label: 'Unsolved Papers',
+                  onPressed: () {},
+                ),
+              ],
             ),
-            label: 'Test Center',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/study-center.svg',
-              width: 35,
-              height: 35,
-              fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 12, 8, 8),
+              child: SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const QuestionOfTheDay();
+                        },
+                      ),
+                    );
+                  },
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 12,
+                    ),
+                  ),
+                  icon: const Icon(
+                    Icons.lightbulb_outline,
+                    size: 30,
+                    color: Colors.black,
+                  ),
+                  label: const Text(
+                    "Question of the day",
+                    style: TextStyle(fontSize: 30, color: Colors.black),
+                  ),
+                ),
+              ),
             ),
-            label: 'Study Center',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset('assets/icons/doubt-center.svg'),
-            label: 'Doubt\'s Hub',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/icons/help-desk.svg',
-              width: 35,
-              height: 38,
-              fit: BoxFit.cover,
+            const SizedBox(height: 5),
+            Expanded(
+              child: ListView(
+                children: [
+                  const HomeList(
+                    imagePath: 'assets/images/dips.jpg',
+                    label: 'Latest Packages',
+                  ),
+                  Card(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Text(
+                                  "Test center",
+                                  style: TextStyle(
+                                    fontSize: 27,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Spacer(),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const TestCenter(),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    "View All >>",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 15,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              height: 105,
+                              child: ListView.builder(
+                                itemCount: 5,
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    elevation: 0,
+                                    color: Colors.grey[100],
+                                    margin: const EdgeInsets.symmetric(
+                                      vertical: 4,
+                                    ),
+                                    child: ListTile(
+                                      leading: SizedBox(
+                                        width: 60,
+                                        height: 60,
+                                        child: Column(
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                width: double.infinity,
+                                                color: Colors.orange,
+                                                alignment: Alignment.center,
+                                                child: const Text(
+                                                  "TEST ID",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                width: double.infinity,
+                                                color: Colors.grey,
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  '963${index + 1}',
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      title: Text("Mock Test ${index + 1}"),
+                                      subtitle: const Text(
+                                        "Duration: 1 Hr • 50 Marks",
+                                      ),
+                                      trailing: const Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 16,
+                                      ),
+                                      onTap: () {},
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const HomeList(
+                    imagePath: 'assets/images/dips.jpg',
+                    label: 'Latest Packages',
+                  ),
+                  const HomeList(
+                    imagePath: 'assets/images/dips.jpg',
+                    label: 'Latest Packages',
+                  ),
+                ],
+              ),
             ),
-            label: 'Help me',
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

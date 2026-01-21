@@ -3,7 +3,6 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../global_variables.dart';
 
-
 class QuestionOfTheDay extends StatefulWidget {
   const QuestionOfTheDay({super.key});
 
